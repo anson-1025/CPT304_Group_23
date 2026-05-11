@@ -7,7 +7,6 @@ require("../src/db/conn");
 const views_path = path.join(__dirname, "../views");
 const static_path = path.join(__dirname, "../static");
 const app = express();
-const port = process.env.PORT || 80;
 
 app.disable("x-powered-by");
 
@@ -59,10 +58,4 @@ app.get("/dashboard", (req, res) => {
     res.status(200).render("dashboard/dashboard.ejs");
 });
 
-
-
-
-//* listen
-app.listen(port, () => {
-    console.log(`The application started successfully on port ${port}`);
-});
+module.exports = app;
