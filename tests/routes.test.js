@@ -16,4 +16,15 @@ describe("Route Tests", () => {
         const res = await request(app).get("/dashboard");
         expect(res.statusCode).toBe(200);
     });
+
+    test("GET invalid route should return 404", async () => {
+        const res = await request(app).get("/invalidroute");
+        expect(res.statusCode).toBe(404);
+    });
+
+    test("Security headers should be set", async () => {
+       const res = await request(app).get("/");
+       expect(res.headers["x-content-type-options"]).toBe("nosniff");
+    });
+
 });
