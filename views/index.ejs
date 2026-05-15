@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../static/styles/main.css" />
+  <title>Taskify</title>
+</head>
+<body>
+  <%-include("../views/partials/nav.ejs") %>
+
+  <%-include("../views/partials/hero.ejs") %>
+
+  <% if (locals.errors && errors.length > 0) { %>
+    <div style="color: #ef4444; text-align: center; font-weight: bold; margin-top: -30px; position: relative; z-index: 99;">
+        ⚠️ <%= errors[0].msg %>
+    </div>
+  <% } %>
+
+  <%-include("../views/partials/feature.ejs") %>
+  <%-include("../views/partials/achievements.ejs") %>
+  <%-include("../views/partials/footer.ejs") %>
+</body>
+</html>
