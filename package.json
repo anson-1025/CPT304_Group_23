@@ -4,10 +4,9 @@
   "description": "Taskify is a task management system for everyone to help you manage your tasks and projects from ideation to delivery.",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
-    "test:coverage": "jest --coverage",
-    "start": "node src/server.js",
-    "server": "nodemon src/server.js"
+    "test": "echo \"Error: no test specified\" ",
+    "start": "node src/app.js",
+    "server": "nodemon src/app.js"
   },
   "repository": {
     "type": "git",
@@ -21,14 +20,15 @@
   },
   "homepage": "https://github.com/DSCKGEC/Taskify#readme",
   "devDependencies": {
-    "jest": "^30.4.2",
-    "nodemon": "^2.0.19",
-    "supertest": "^7.2.2"
+    "nodemon": "^2.0.19"
   },
   "dependencies": {
+    "cookie-parser": "^1.4.7",
     "dotenv": "^16.0.1",
     "ejs": "^3.1.8",
     "express": "^4.18.1",
-    "helmet": "^8.1.0"
+    "express-validator": "^7.3.2",
+    "i18n": "^0.15.3",
+    "xss": "^1.0.15"
   }
 }
