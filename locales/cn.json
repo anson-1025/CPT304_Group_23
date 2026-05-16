@@ -1,4 +1,9 @@
 {
+  "home": {
+    "title": "一个应用替代所有",
+    "email_placeholder": "请输入您的邮箱地址",
+    "get_started": "立即开始"
+  },
   "nav": {
     "features": "功能",
     "templates": "模板",

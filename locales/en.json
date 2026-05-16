@@ -1,4 +1,9 @@
 {
+  "home": {
+    "title": "One app to replace them all",
+    "email_placeholder": "Enter your email address",
+    "get_started": "Get Started"
+  },
   "nav": {
     "features": "Features",
     "templates": "Templates",

@@ -47,20 +47,27 @@ app.use((req, res, next) => {
 });
 
 app.get("/", (req, res) => {
-    res.render("index.ejs", { errors: [] });
+    res.render("index.ejs", { subscribeError: null });
 });
 
 // 2. 增加主页订阅 Email 的 POST 验证
 app.post("/subscribe", [
-    body('subscribeEmail').isEmail()
+    body('subscribeEmail').isEmail() // 验证邮箱格式是否正确
 ], (req, res) => {
     const errors = validationResult(req);
+
     if (!errors.isEmpty()) {
+        // 格式错误时，获取对应的国际化翻译文字
+        const errorMsg = res.__('validation.home_email') || "Subscription email format is incorrect";
+
+        // 校验失败，重新渲染主页，并把错误信息精准塞给 subscribeError
         return res.status(400).render("index.ejs", {
-            errors: [{ msg: res.__('validation.home_email') }]
+            subscribeError: errorMsg
         });
     }
-    res.send("Subscribed Successfully!");
+
+    // 验证成功后的业务逻辑
+    res.send("Subscription Successful!");
 });
 
 // GET registration page
