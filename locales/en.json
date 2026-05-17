@@ -1,0 +1,18 @@
+{
+	"signup.title": "Sign Up",
+	"signup.pageHeading": "Sign up or Log in",
+	"signup.username": "User name",
+	"signup.email": "Email",
+	"signup.password": "Password",
+	"signup.submit": "Sign up",
+	"login.title": "Login",
+	"login.email": "Enter your email",
+	"login.password": "Enter password",
+	"login.submit": "Login",
+	"validation.username": "Username is required",
+	"validation.email": "Please enter a valid email address",
+	"validation.password": "Password must be at least 6 characters",
+	"cookie.message": "We use cookies to improve your experience.",
+	"cookie.accept": "Accept",
+	"cookie.reject": "Reject"
+}
