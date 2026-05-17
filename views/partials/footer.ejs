@@ -83,17 +83,6 @@
             
         
     </footer>
-
-  <div id="cookieBanner" style="position:fixed; bottom:0; left:0; right:0; background:#2d3748; color:white; padding:1rem; text-align:center; display:none; z-index:1000;">
-    <p><%= __("We use cookies to improve your experience.") %></p>
-    <button onclick="acceptCookies()" style="background:#48bb78; border:none; color:white; padding:5px 15px; cursor:pointer; margin-right:10px;">Accept</button>
-    <button onclick="closeBanner()" style="background:#718096; border:none; color:white; padding:5px 15px; cursor:pointer;">Reject</button>
-</div>
-<script>
-    if(!localStorage.getItem('cookieAccepted')) document.getElementById('cookieBanner').style.display='block';
-    function acceptCookies(){ localStorage.setItem('cookieAccepted', 'true'); closeBanner(); }
-    function closeBanner(){ document.getElementById('cookieBanner').style.display='none'; }
-</script>
-
+    
   </body>
 </html>
