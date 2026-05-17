@@ -1,73 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../static/styles/signup.css" />
-    <title>SignUp</title>
-    <style>
-        /* 错误框样式优化：不遮挡按钮 */
-        .error-wrapper {
-            background: #fee2e2;
-            border: 1px solid #ef4444;
-            color: #b91c1c;
-            padding: 5px 10px;
-            border-radius: 4px;
-            margin: 0 40px 5px 40px;
-            font-size: 11px;
-            text-align: left;
-            max-height: 55px; /* 限制高度 */
-            overflow-y: auto; /* 内部滚动 */
-        }
-        /* 确保主容器高度足够 */
-        .main { height: 550px !important; }
-    </style>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../static/styles/signup.css" />
+  <title>SignUp</title>
 </head>
+
 <body>
-    <section class="section signup-section">
-        <div class="container signup-container">
-            <div class="main">
-                <input type="checkbox" id="chk" aria-hidden="true" onclick="document.querySelectorAll('.error-wrapper').forEach(e => e.style.display='none')" />
+  <section class="section signup-section">
+    <div class="container signup-container">
+      <div class="main">
+        <input type="checkbox" id="chk" aria-hidden="true" />
 
-                <div class="signup">
-                    <form method="post" action="/signup">
-                        <label for="chk" aria-hidden="true"><%= __('signup.title') %></label>
-
-                        <% if (locals.errors && errors.length > 0) { %>
-                            <div class="error-wrapper">
-                                <% errors.forEach(function(error) { %>
-                                    <div>⚠️ <%= error.msg %></div>
-                                <% }); %>
-                            </div>
-                        <% } %>
-
-                        <div class="signup-username">
-                            <input type="text" name="SignUpUsername" placeholder="<%= __('signup.username') %>" value="<%= locals.formData ? formData.SignUpUsername : '' %>" />
-                        </div>
-                        <div class="signup-email">
-                            <input type="email" name="SignUpEmail" placeholder="<%= __('signup.email') %>" value="<%= locals.formData ? formData.SignUpEmail : '' %>" />
-                        </div>
-                        <div class="signup-password">
-                            <input type="password" name="SignUpPassword" placeholder="<%= __('signup.password') %>" />
-                        </div>
-                        <input class="button" name="SignUpSubmit" type="submit" value="<%= __('signup.submit') %>" />
-                    </form>
-                </div>
-
-                <div class="login">
-                    <form method="post" action="/login">
-                        <label for="chk" aria-hidden="true"><%= __('nav.login') %></label>
-                        <div class="signup-email">
-                            <input type="email" name="LoginEmail" placeholder="<%= __('signup.email') %>" />
-                        </div>
-                        <div class="signup-password">
-                            <input type="password" name="LoginPassword" placeholder="<%= __('signup.password') %>" />
-                        </div>
-                        <input class="button" name="LoginSubmit" type="submit" value="<%= __('nav.login') %>" />
-                    </form>
-                </div>
+        <div class="signup">
+          <form method="post" action="/signup">
+            <label for="chk" aria-hidden="true">Sign up</label>
+            <div class="signup-username">
+              <input type="text" name="SignUpUsername" placeholder="User name" required="true" />
             </div>
+            <div class="signup-email">
+              <input type="email" name="SignUpEmail" placeholder="Email" required="true" />
+            </div>
+            <div class="signup-password">
+              <input type="password" name="SignUpPassword" placeholder="Password" required="true" />
+            </div>
+            <div>
+              <input class="button" name="SignUpSubmit" type="submit" value="Sign up" />
+            </div>
+          </form>
         </div>
-    </section>
+        <div class="login">
+          <form method="post" action="/login">
+            <label for="chk" aria-hidden="true">Login</label>
+            <div class="signup-email">
+              <input type="email" name="LoginEmail" placeholder="Enter your email " required="true" />
+            </div>
+            <div class="signup-password">
+              <input type="password" name="LoginPassword" placeholder="Enter password" required="true" />
+            </div>
+            <!-- <button href="/auth">Log In</button> -->
+            <div>
+              <input class="button" name="LoginSubmit" type="submit" value="Login" />
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
 </body>
+
+</html>
+</head>
+
 </html>
