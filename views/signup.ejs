@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<%= locale || 'en' %>">
 
 <head>
   <meta charset="UTF-8" />
@@ -7,12 +7,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../static/styles/signup.css" />
-  <title>SignUp</title>
+  <title><%= __("signup.title") %></title>
 </head>
 
 <body>
-  <main>
-  <h1 style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0;">Sign up or Log in</h1>
+<main>
+  <h1 style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0;">
+    <%= __("signup.pageHeading") %>
+  </h1>
+
   <section class="section signup-section">
     <div class="container signup-container">
       <div class="main">
@@ -20,43 +23,82 @@
 
         <div class="signup">
           <form method="post" action="/signup">
-            <label for="chk" aria-hidden="true">Sign up</label>
+            <label for="chk" aria-hidden="true"><%= __("signup.title") %></label>
+
+            <% if (typeof errors !== "undefined" && errors.length > 0) { %>
+              <div class="form-errors" role="alert" aria-live="polite">
+                <% errors.forEach(function(error) { %>
+                  <p><%= error.msg %></p>
+                <% }); %>
+              </div>
+            <% } %>
+
             <div class="signup-username">
-              <input type="text" name="SignUpUsername" placeholder="User name" required="true" />
+              <input
+                      type="text"
+                      name="SignUpUsername"
+                      placeholder="<%= __('signup.username') %>"
+                      value="<%= formData && formData.SignUpUsername ? formData.SignUpUsername : '' %>"
+                      required
+              />
             </div>
+
             <div class="signup-email">
-              <input type="email" name="SignUpEmail" placeholder="Email" required="true" />
+              <input
+                      type="email"
+                      name="SignUpEmail"
+                      placeholder="<%= __('signup.email') %>"
+                      value="<%= formData && formData.SignUpEmail ? formData.SignUpEmail : '' %>"
+                      required
+              />
             </div>
+
             <div class="signup-password">
-              <input type="password" name="SignUpPassword" placeholder="Password" required="true" />
+              <input
+                      type="password"
+                      name="SignUpPassword"
+                      placeholder="<%= __('signup.password') %>"
+                      required
+              />
             </div>
+
             <div>
-              <input class="button" name="SignUpSubmit" type="submit" value="Sign up" />
+              <input class="button" name="SignUpSubmit" type="submit" value="<%= __('signup.submit') %>" />
             </div>
           </form>
         </div>
+
         <div class="login">
           <form method="post" action="/login">
-            <label for="chk" aria-hidden="true">Login</label>
+            <label for="chk" aria-hidden="true"><%= __("login.title") %></label>
+
             <div class="signup-email">
-              <input type="email" name="LoginEmail" placeholder="Enter your email " required="true" />
+              <input
+                      type="email"
+                      name="LoginEmail"
+                      placeholder="<%= __('login.email') %>"
+                      required
+              />
             </div>
+
             <div class="signup-password">
-              <input type="password" name="LoginPassword" placeholder="Enter password" required="true" />
+              <input
+                      type="password"
+                      name="LoginPassword"
+                      placeholder="<%= __('login.password') %>"
+                      required
+              />
             </div>
-            <!-- <button href="/auth">Log In</button> -->
+
             <div>
-              <input class="button" name="LoginSubmit" type="submit" value="Login" />
+              <input class="button" name="LoginSubmit" type="submit" value="<%= __('login.submit') %>" />
             </div>
           </form>
         </div>
       </div>
     </div>
   </section>
-  </main>
+</main>
 </body>
-
-</html>
-</head>
 
 </html>

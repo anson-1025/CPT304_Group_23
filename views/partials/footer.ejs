@@ -83,6 +83,15 @@
             
         
     </footer>
+    <div id="cookie-banner" class="cookie-banner" role="dialog" aria-live="polite" aria-label="Cookie consent" style="display: none;">
+        <span><%= __("cookie.message") %></span>
+        <button type="button" id="cookie-accept"><%= __("cookie.accept") %></button>
+        <button type="button" id="cookie-reject"><%= __("cookie.reject") %></button>
+    </div>
+
+    <script src="/static/scripts/cookie-consent.js"></script>
+
+
     
   </body>
 </html>

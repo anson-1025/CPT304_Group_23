@@ -135,3 +135,35 @@
 .footer-taskify-inc {
   padding: 0 30px;
 }
+
+.cookie-banner {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 24px;
+  background: #273142;
+  color: #ffffff;
+  font-size: 16px;
+}
+
+.cookie-banner button {
+  border: 0;
+  padding: 8px 16px;
+  cursor: pointer;
+  font: inherit;
+}
+
+#cookie-accept {
+  background: #2ecc71;
+  color: #ffffff;
+}
+
+#cookie-reject {
+  background: #6b7280;
+  color: #ffffff;
+}
