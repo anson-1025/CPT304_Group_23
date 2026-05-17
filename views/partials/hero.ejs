@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../../static/styles/main.css">
     <link rel="stylesheet" href="../../static/styles/partials/hero.css" />
+  
     <title>Document</title>
   </head>
   <body>
@@ -13,38 +14,31 @@
       <div class="container hero-container">
         <div class="hero-col-text">
           <div>
-            <h1 class="hero-heading"><%= __('home.title') %></h1>
+            <h1 class="hero-heading">One app to
+              replace them all</h1>
+              
           </div>
           <div class="hero-desc">
-            </div>
-
-          <form action="/subscribe" method="POST" id="heroSubscribeForm" style="display: contents;">
-
-            <input
-              class="hero-input-email"
-              type="email"
-              name="subscribeEmail"
-              id="hero-email"
-              placeholder="<%= __('home.email_placeholder') %>"
-            >
-
-            <% if (locals.subscribeError) { %>
-              <div style="color: #ef4444; font-size: 13px; margin: 5px 0 10px 0; font-weight: 600; text-align: left; width: 100%;">
-                ⚠️ <%= subscribeError %>
-              </div>
-            <% } %>
-
-            <a href="#" class="hero-btn" onclick="document.getElementById('heroSubscribeForm').submit(); return false;">
-              <%= __('home.get_started') %>
-            </a>
-
-          </form>
+            <!-- Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat, explicabo. -->
+          </div>
+          
+          <input class="hero-input-email"type="email" name="email" id="hero-email" placeholder="Enter your email address">
+        
+          <a href="#" class="hero-btn">Get Started</a>
         </div>
+        
+      
+          
+          <div class="hero-col-img">
+              <img class="hero-image" src="../../static/assets/laptop.png" >
+          
+          </div>
 
-        <div class="hero-col-img">
-            <img class="hero-image" src="../../static/assets/laptop.png" >
-        </div>
+        
        </div>
-    </section>
+      
+    
+      </section>
+    
   </body>
 </html>
