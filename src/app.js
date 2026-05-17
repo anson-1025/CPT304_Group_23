@@ -1,92 +1,106 @@
 const { urlencoded } = require("express");
 const express = require("express");
+const helmet = require("helmet");
 const path = require("path");
-// ---  Member D newly added start ---
-const { body, validationResult } = require('express-validator');
-const xss = require('xss');
-const i18n = require('i18n');
-const cookieParser = require('cookie-parser');
-// --- Member D newly added end ---
 require("dotenv").config();
 require("../src/db/conn");
 const views_path = path.join(__dirname, "../views");
 const static_path = path.join(__dirname, "../static");
 const app = express();
 const port = process.env.PORT || 80;
+const { body, validationResult } = require("express-validator");
+const xss = require("xss");
+const i18n = require("i18n");
+const cookieParser = require("cookie-parser");
+
+app.disable("x-powered-by");
+
+app.use(
+    helmet({
+        contentSecurityPolicy: {
+            useDefaults: true,
+            directives: {
+                "script-src": ["'self'", "https://kit.fontawesome.com"],
+                "style-src": [
+                    "'self'",
+                    "'unsafe-inline'",
+                    "https://fonts.googleapis.com",
+                    "https://cdnjs.cloudflare.com"
+                ],
+                "font-src": [
+                    "'self'",
+                    "https://fonts.gstatic.com",
+                    "https://cdnjs.cloudflare.com"
+                ],
+                "img-src": ["'self'", "data:"],
+            },
+        },
+        referrerPolicy: {
+            policy: "strict-origin-when-cross-origin",
+        },
+    })
+);
 
 
 app.use("/static", express.static(static_path));
 app.use(express.json());
 app.use(urlencoded({ extended: false }));
-
 app.use(cookieParser());
 
-// i18n internationalization configuration
 i18n.configure({
-    locales: ['en', 'cn'],
-    directory: path.join(__dirname, '../locales'),
-    defaultLocale: 'en',
-    cookie: 'lang',
-    queryParameter: 'lang',
-    autoReload: true,
-    updateFiles: false,
-    objectNotation: true
+    locales: ["en", "cn"],
+    directory: path.join(__dirname, "../locales"),
+    defaultLocale: "en",
+    cookie: "lang",
+    queryParameter: "lang",
+    objectNotation: false
 });
 
-app.use(cookieParser());
 app.use(i18n.init);
 
 app.use((req, res, next) => {
-    const lang = req.query.lang;
-    if (lang) {
-        res.cookie('lang', lang);
-    }
-    res.locals.__ = res.__;
-    res.locals.errors = [];
-    next();
-});
+    const lang = req.query.lang || req.cookies.lang;
 
-app.get("/", (req, res) => {
-    res.render("index.ejs", { subscribeError: null });
-});
-
-// 2. 增加主页订阅 Email 的 POST 验证
-app.post("/subscribe", [
-    body('subscribeEmail').isEmail() // 验证邮箱格式是否正确
-], (req, res) => {
-    const errors = validationResult(req);
-
-    if (!errors.isEmpty()) {
-        // 格式错误时，获取对应的国际化翻译文字
-        const errorMsg = res.__('validation.home_email') || "Subscription email format is incorrect";
-
-        // 校验失败，重新渲染主页，并把错误信息精准塞给 subscribeError
-        return res.status(400).render("index.ejs", {
-            subscribeError: errorMsg
+    if (lang && ["en", "cn"].includes(lang)) {
+        res.setLocale(lang);
+        res.cookie("lang", lang, {
+            httpOnly: true,
+            sameSite: "lax"
         });
     }
 
-    // 验证成功后的业务逻辑
-    res.send("Subscription Successful!");
+    res.locals.__ = res.__;
+    res.locals.locale = res.getLocale();
+    next();
 });
 
-// GET registration page
+
+app.set("view engine", "ejs");
+app.set("views", views_path);
+
+app.get("/", (req, res) => {
+    res.status(200).render("index.ejs");
+});
+
 app.get("/signup", (req, res) => {
-    res.status(200).render("signup.ejs", { errors: [] });
+    res.status(200).render("signup.ejs", {
+        errors: [],
+        formData: {}
+    });
 });
 
-// POST Registration Handling: Add Input Validation
 app.post("/signup", [
-    body('SignUpUsername').trim().notEmpty(),
-    body('SignUpEmail').isEmail(),
-    body('SignUpPassword').isLength({ min: 6 })
+    body("SignUpUsername").trim().notEmpty(),
+    body("SignUpEmail").isEmail(),
+    body("SignUpPassword").isLength({ min: 6 })
 ], (req, res) => {
     const errors = validationResult(req);
+
     if (!errors.isEmpty()) {
         const translatedErrors = errors.array().map(err => {
-            let key = 'validation.username';
-            if (err.path === 'SignUpEmail') key = 'validation.email';
-            if (err.path === 'SignUpPassword') key = 'validation.password';
+            let key = "validation.username";
+            if (err.path === "SignUpEmail") key = "validation.email";
+            if (err.path === "SignUpPassword") key = "validation.password";
             return { msg: res.__(key) };
         });
 
@@ -95,12 +109,11 @@ app.post("/signup", [
             formData: req.body
         });
     }
-    res.send("Registration Success!");
-});
 
-// Privacy Page Route
-app.get("/privacy", (req, res) => {
-    res.render("privacy.ejs");
+    const safeUsername = xss(req.body.SignUpUsername);
+    const safeEmail = xss(req.body.SignUpEmail);
+
+    res.send(`Registration Success! ${safeUsername} (${safeEmail})`);
 });
 
 // In Future this dashboard will be rendered after authentication of users 
@@ -108,13 +121,11 @@ app.get("/dashboard", (req, res) => {
     res.status(200).render("dashboard/dashboard.ejs");
 });
 
-// Member D: Privacy Policy Route
 app.get("/privacy", (req, res) => {
     res.status(200).render("privacy.ejs");
 });
 
 
-//* listen
-app.listen(port, () => {
-    console.log(`The application started successfully on port ${port}`);
-});
+
+
+module.exports = app;
